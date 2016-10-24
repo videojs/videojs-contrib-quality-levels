@@ -1,0 +1,13 @@
+{
+  "name": "videojs-contrib-quality-levels",
+  "author": "Matthew Neil",
+  "license": "Apache-2.0",
+  "main": [
+    "dist/videojs-contrib-quality-levels.min.js"
+  ],
+  "keywords": [
+    "videojs",
+    "videojs-plugin"
+  ]
+}
+
