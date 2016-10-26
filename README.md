@@ -32,7 +32,7 @@ This is the simplest case. Get the script in whatever way you prefer and include
 <script>
   var player = videojs('my-video');
 
-  player.contribQualityLevels();
+  player.qualityLevels();
 </script>
 ```
 
@@ -50,7 +50,7 @@ require('videojs-contrib-quality-levels');
 
 var player = videojs('my-video');
 
-player.contribQualityLevels();
+player.qualityLevels();
 ```
 
 ### RequireJS/AMD
@@ -61,7 +61,7 @@ When using with RequireJS (or another AMD library), get the script in whatever w
 require(['video.js', 'videojs-contrib-quality-levels'], function(videojs) {
   var player = videojs('my-video');
 
-  player.contribQualityLevels();
+  player.qualityLevels();
 });
 ```
 
