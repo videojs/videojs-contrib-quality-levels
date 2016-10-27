@@ -1,7 +1,7 @@
 {
   "name": "videojs-contrib-quality-levels",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Exposes a list of quality levels available for the source.",
   "main": "es5/plugin.js",
   "generator-videojs-plugin": {
     "version": "2.2.0"
@@ -38,8 +38,9 @@
     "videojs",
     "videojs-plugin"
   ],
-  "author": "Matthew Neil",
+  "author": "Brightcove, Inc.",
   "license": "Apache-2.0",
+  "copyright": "Copyright Brightcove, Inc. <https://www.brightcove.com/>",
   "browserify": {
     "transform": [
       "browserify-versionify"

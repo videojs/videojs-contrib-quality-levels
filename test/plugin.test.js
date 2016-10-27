@@ -49,8 +49,6 @@ QUnit.test('registers itself with video.js', function(assert) {
 });
 
 QUnit.test('hls lifecyle', function(assert) {
-  assert.expect(8);
-
   let playlistLoader = new MockPlaylistLoader();
 
   this.player.tech_.hls = {
@@ -74,6 +72,7 @@ QUnit.test('hls lifecyle', function(assert) {
 
   // Tick the clock forward enough to trigger the player to be "ready".
   this.clock.tick(1);
+  this.player.trigger('loadstart');
 
   assert.equal(qualityLevels.length, 0, 'no quality levels available before loadedmetadata');
   assert.equal(qualityLevels.selectedIndex, -1, 'no quality level selected yet');
@@ -96,8 +95,6 @@ QUnit.test('hls lifecyle', function(assert) {
 });
 
 QUnit.test('dash lifecyle', function(assert) {
-  assert.expect();
-
   let mediaPlayer = new MockMediaPlayer();
 
   this.player.dash = this.player.dash || {};
@@ -125,6 +122,8 @@ QUnit.test('dash lifecyle', function(assert) {
 
   assert.equal(qualityLevels.length, 4, 'added 4 quality levels');
   assert.equal(addCount, 4, 'trigger 4 addqualitylevel events');
+  assert.equal(qualityLevels.selectedIndex, -1, 'no quality level selected yet');
+  assert.equal(changeCount, 0, 'did not trigger change event');
 
   // Set mock media player to select initial media to be index 0
   mediaPlayer.trigger({

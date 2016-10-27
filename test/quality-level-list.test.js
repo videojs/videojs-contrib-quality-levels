@@ -11,8 +11,6 @@ QUnit.module('QualityLevelList', {
 });
 
 QUnit.test('Properly adds QualityLevels to the QualityLevelList', function(assert) {
-  assert.expect(9);
-
   let addCount = 0;
 
   this.qualityLevels.on('addqualitylevel', (event) => {
@@ -36,11 +34,11 @@ QUnit.test('Properly adds QualityLevels to the QualityLevelList', function(asser
   assert.equal(this.qualityLevels.length, 2, 'does not add duplicate quality level');
   assert.equal(addCount, 2, 'no event emitted on dulicate');
   assert.strictEqual(this.qualityLevels[3], undefined, 'no index property defined');
+  assert.strictEqual(this.qualityLevels[0], this.levels[0], 'quality level unchanged');
+  assert.strictEqual(this.qualityLevels[1], this.levels[1], 'quality level unchanged');
 });
 
 QUnit.test('Properly removes QualityLevels from the QualityLevelList', function(assert) {
-  assert.expect(10);
-
   let removeCount = 0;
 
   this.levels.forEach((qualityLevel) => {
@@ -75,11 +73,15 @@ QUnit.test('Properly removes QualityLevels from the QualityLevelList', function(
 
   assert.equal(this.qualityLevels.length, 2, 'no quality level removed if not found');
   assert.equal(removeCount, 2, 'no event emitted when quality level not found');
+
+  this.qualityLevels.removeQualityLevel(this.levels[2]);
+
+  assert.equal(this.qualityLevels.length, 1, 'quality level removed');
+  assert.equal(removeCount, 3, 'emitted removequalitylevel event');
+  assert.equal(this.qualityLevels.selectedIndex, -1, 'selectedIndex set to -1 when removing selected quality level');
 });
 
 QUnit.test('can get quality level by id', function(assert) {
-  assert.expect(5);
-
   this.levels.forEach((qualityLevel) => {
     this.qualityLevels.addQualityLevel(qualityLevel);
   });

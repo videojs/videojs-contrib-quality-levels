@@ -41,14 +41,32 @@ class QualityLevelList extends videojs.EventTarget {
     list.levels_ = [];
   }
 
+  /**
+   * Get the index of the currently selected QualityLevel.
+   *
+   * @returns {number} The index of the selected QualityLevel. -1 if none selected.
+   * @readonly
+   */
   get selectedIndex() {
     return this.selectedIndex_;
   }
 
+  /**
+   * Get the length of the list of QualityLevels.
+   *
+   * @returns {number} The length of the list.
+   * @readonly
+   */
   get length() {
     return this.levels_.length;
   }
 
+  /**
+   * Adds a quality level to the list.
+   *
+   * @param {QualityLevel} qualityLevel QualityLevel to add to the list.
+   * @method addQualityLevel
+   */
   addQualityLevel(qualityLevel) {
     const index = this.levels_.length;
 
@@ -73,12 +91,17 @@ class QualityLevelList extends videojs.EventTarget {
     });
   }
 
-  removeQualityLevel(remove) {
-    let qualityLevel;
+  /**
+   * Removes a quality level from the list.
+   *
+   * @param {QualityLevel} remove QualityLevel to remove to the list.
+   * @method removeQualityLevel
+   */
+  removeQualityLevel(qualityLevel) {
+    let removed = false;
 
     for (let i = 0, l = this.length; i < l; i++) {
-      if (this[i] === remove) {
-        qualityLevel = this[i];
+      if (this[i] === qualityLevel) {
         this.levels_.splice(i, 1);
 
         if (this.selectedIndex_ === i) {
@@ -86,10 +109,12 @@ class QualityLevelList extends videojs.EventTarget {
         } else if (this.selectedIndex_ > i) {
           this.selectedIndex_--;
         }
+        removed = true;
+        break;
       }
     }
 
-    if (!qualityLevel) {
+    if (!removed) {
       return;
     }
 
@@ -99,6 +124,13 @@ class QualityLevelList extends videojs.EventTarget {
     });
   }
 
+  /**
+   * Searches for a QualityLevel with the given id.
+   *
+   * @param {string} id The id of the QualityLevel to find.
+   * @returns {QualityLevel|null} The QualityLevel with id, or null if not found.
+   * @method getQualityLevelById
+   */
   getQualityLevelById(id) {
     for (let i = 0, l = this.length; i < l; i++) {
       let level = this[i];
@@ -110,6 +142,11 @@ class QualityLevelList extends videojs.EventTarget {
     return null;
   }
 
+  /**
+   * Resets the list of QualityLevels to empty
+   *
+   * @method dispose
+   */
   dispose() {
     this.selectedIndex_ = -1;
     this.levels_.length = 0;

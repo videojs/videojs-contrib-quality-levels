@@ -4,6 +4,14 @@ import QualityLevelList from './quality-level-list.js';
 
 const noop = () => {};
 
+/**
+ * Finds the index of the HLS playlist in a give list of playlists.
+ *
+ * @param {Object} media Playlist object to search for.
+ * @param {Object[]} playlists List of playlist objects to search through.
+ * @returns {number} The index of the playlist or -1 if not found.
+ * @function getHlsPlaylistIndex
+ */
 const getHlsPlaylistIndex = function(media, playlists) {
   for (let i = 0; i < playlists.length; i++) {
     let playlist = playlists[i];
@@ -15,37 +23,52 @@ const getHlsPlaylistIndex = function(media, playlists) {
   return -1;
 };
 
-const setupHlsHandlers = function(qualityLevels, hls) {
-  hls.playlists.on('loadedmetadata', () => {
-    let selectedPlaylist = hls.playlists.media();
-    let selectedIndex = getHlsPlaylistIndex(selectedPlaylist,
-      hls.playlists.master.playlists);
+/**
+ * Updates the selcetedIndex of the QualityLevelList when a mediachange happens in hls.
+ *
+ * @param {QualityLevelList} qualityLevels The QualityLevelList to update.
+ * @param {PlaylistLoader} playlistLoader PlaylistLoader containing the new media info.
+ * @function onHlsMediaChange
+ */
+const onHlsMediaChange = function(qualityLevels, playlistLoader) {
+  let newPlaylist = playlistLoader.media();
+  let selectedIndex = getHlsPlaylistIndex(newPlaylist, playlistLoader.master.playlists);
 
-    hls.representations().forEach((rep) => {
-      qualityLevels.addQualityLevel(new QualityLevel(rep));
-    });
-
-    qualityLevels.selectedIndex_ = selectedIndex;
-    qualityLevels.trigger({
-      selectedIndex,
-      type: 'change'
-    });
-  });
-
-  hls.playlists.on('mediachange', () => {
-    let newPlaylist = hls.playlists.media();
-    let selectedIndex = getHlsPlaylistIndex(newPlaylist,
-      hls.playlists.master.playlists);
-
-    qualityLevels.selectedIndex_ = selectedIndex;
-    qualityLevels.trigger({
-      selectedIndex,
-      type: 'change'
-    });
+  qualityLevels.selectedIndex_ = selectedIndex;
+  qualityLevels.trigger({
+    selectedIndex,
+    type: 'change'
   });
 };
 
-const setupdDashHandlers = function() {
+/**
+ * Sets up the event handlers for populating and updating the selectedIndex of the
+ * QualityLevelList for an HLS source.
+ *
+ * @param {QualityLevelList} qualityLevels The QualityLevelList to attach events to.
+ * @param {Object} hls Hls object to listen to for media events.
+ * @function setupHlsHandlers
+ */
+const setupHlsHandlers = function(qualityLevels, hls) {
+  hls.playlists.on('loadedmetadata', () => {
+    hls.representations().forEach((rep) => {
+      qualityLevels.addQualityLevel(new QualityLevel(rep));
+    });
+    onHlsMediaChange(qualityLevels, hls.playlists);
+  });
+
+  hls.playlists.on('mediachange', () => {
+    onHlsMediaChange(qualityLevels, hls.playlists);
+  });
+};
+
+/**
+ * Sets up the event handlers for populating and updating the selectedIndex of the
+ * QualityLevelList for Dash source.
+ *
+ * @function setupDashHandlers
+ */
+const setupDashHandlers = function() {
   let beforeDashInit = videojs.Html5DashJS.beforeInitialize || noop;
 
   videojs.Html5DashJS.beforeInitialize = function(player, newMediaPlayer) {
@@ -98,12 +121,22 @@ const qualityLevels = function() {
     player.on('dispose', () => {
       qualityLevelList.dispose();
     });
-  }
 
-  if (player.tech_.hls) {
-    setupHlsHandlers(qualityLevelList, player.tech_.hls);
-  } else if (videojs.Html5DashJS) {
-    setupdDashHandlers();
+    // Hls sourceHandler recreated on source change, so we want to re-setup hls
+    // handlers on new source loads.
+    player.on('loadstart', () => {
+      qualityLevelList.dispose();
+      if (player.tech_.hls) {
+        setupHlsHandlers(qualityLevelList, player.tech_.hls);
+      }
+    });
+
+    // Since Dash handlers are setup in videojs.Html5DashJS.beforeInitialize
+    // we only need to override beforeInitialize on the global videojs.Html5DashJS once
+    // instead of on every new source load.
+    if (videojs.Html5DashJS) {
+      setupDashHandlers();
+    }
   }
 
   return qualityLevelList;
