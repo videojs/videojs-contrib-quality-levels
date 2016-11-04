@@ -28,20 +28,6 @@ const getHlsPlaylistIndex = function(media, playlists) {
 };
 
 /**
- * Adds quality levels to list once playlist metadata is available
- *
- * @param {QualityLevelList} qualityLevels The QualityLevelList to attach events to.
- * @param {Object} hls Hls object to listen to for media events.
- * @function handleHlsLoadedMetadata
- */
-const handleHlsLoadedMetadata = function(qualityLevels, hls) {
-  hls.representations().forEach((rep) => {
-    qualityLevels.addQualityLevel(new QualityLevel(rep));
-  });
-  handleHlsMediaChange(qualityLevels, hls.playlists);
-};
-
-/**
  * Updates the selcetedIndex of the QualityLevelList when a mediachange happens in hls.
  *
  * @param {QualityLevelList} qualityLevels The QualityLevelList to update.
@@ -57,6 +43,20 @@ const handleHlsMediaChange = function(qualityLevels, playlistLoader) {
     selectedIndex,
     type: 'change'
   });
+};
+
+/**
+ * Adds quality levels to list once playlist metadata is available
+ *
+ * @param {QualityLevelList} qualityLevels The QualityLevelList to attach events to.
+ * @param {Object} hls Hls object to listen to for media events.
+ * @function handleHlsLoadedMetadata
+ */
+const handleHlsLoadedMetadata = function(qualityLevels, hls) {
+  hls.representations().forEach((rep) => {
+    qualityLevels.addQualityLevel(new QualityLevel(rep));
+  });
+  handleHlsMediaChange(qualityLevels, hls.playlists);
 };
 
 /**
