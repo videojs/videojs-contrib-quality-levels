@@ -4,6 +4,10 @@ import QualityLevelList from './quality-level-list.js';
 
 const noop = () => {};
 
+let qualityLevelList = null;
+let onHlsMediaChange = null;
+let onHlsLoadedMetadata = null;
+
 /**
  * Finds the index of the HLS playlist in a give list of playlists.
  *
@@ -24,13 +28,27 @@ const getHlsPlaylistIndex = function(media, playlists) {
 };
 
 /**
+ * Adds quality levels to list once playlist metadata is available
+ *
+ * @param {QualityLevelList} qualityLevels The QualityLevelList to attach events to.
+ * @param {Object} hls Hls object to listen to for media events.
+ * @function handleHlsLoadedMetadata
+ */
+const handleHlsLoadedMetadata = function(qualityLevels, hls) {
+  hls.representations().forEach((rep) => {
+    qualityLevels.addQualityLevel(new QualityLevel(rep));
+  });
+  handleHlsMediaChange(qualityLevels, hls.playlists);
+};
+
+/**
  * Updates the selcetedIndex of the QualityLevelList when a mediachange happens in hls.
  *
  * @param {QualityLevelList} qualityLevels The QualityLevelList to update.
  * @param {PlaylistLoader} playlistLoader PlaylistLoader containing the new media info.
- * @function onHlsMediaChange
+ * @function handleHlsMediaChange
  */
-const onHlsMediaChange = function(qualityLevels, playlistLoader) {
+const handleHlsMediaChange = function(qualityLevels, playlistLoader) {
   let newPlaylist = playlistLoader.media();
   let selectedIndex = getHlsPlaylistIndex(newPlaylist, playlistLoader.master.playlists);
 
@@ -50,16 +68,21 @@ const onHlsMediaChange = function(qualityLevels, playlistLoader) {
  * @function setupHlsHandlers
  */
 const setupHlsHandlers = function(qualityLevels, hls) {
-  hls.playlists.on('loadedmetadata', () => {
-    hls.representations().forEach((rep) => {
-      qualityLevels.addQualityLevel(new QualityLevel(rep));
-    });
-    onHlsMediaChange(qualityLevels, hls.playlists);
-  });
+  if (!onHlsLoadedMetadata) {
+    onHlsLoadedMetadata = () => {
+      handleHlsLoadedMetadata(qualityLevels, hls);
+    };
 
-  hls.playlists.on('mediachange', () => {
-    onHlsMediaChange(qualityLevels, hls.playlists);
-  });
+    hls.playlists.on('loadedmetadata', onHlsLoadedMetadata);
+  }
+
+  if (!onHlsMediaChange) {
+    onHlsMediaChange = () => {
+      handleHlsMediaChange(qualityLevels, hls.playlists);
+    };
+
+    hls.playlists.on('mediachange', onHlsMediaChange);
+  }
 };
 
 /**
@@ -100,8 +123,6 @@ const setupDashHandlers = function() {
   };
 };
 
-let qualityLevelList = null;
-
 /**
  * A video.js plugin.
  *
@@ -120,6 +141,16 @@ const qualityLevels = function() {
 
     player.on('dispose', () => {
       qualityLevelList.dispose();
+
+      if (onHlsLoadedMetadata) {
+        player.tech_.hls.playlists.off(onHlsLoadedMetadata);
+        onHlsLoadedMetadata = null;
+      }
+
+      if (onHlsMediaChange) {
+        player.tech_.hls.playlists.off(onHlsMediaChange);
+        onHlsMediaChange = null;
+      }
     });
 
     // Hls sourceHandler recreated on source change, so we want to re-setup hls
@@ -130,6 +161,12 @@ const qualityLevels = function() {
         setupHlsHandlers(qualityLevelList, player.tech_.hls);
       }
     });
+
+    // Sometimes loadstart will fire before we get here, so we want to set up the handlers
+    // initially as well.
+    if (player.tech_.hls) {
+      setupHlsHandlers(qualityLevelList, player.tech_.hls);
+    }
 
     // Since Dash handlers are setup in videojs.Html5DashJS.beforeInitialize
     // we only need to override beforeInitialize on the global videojs.Html5DashJS once
