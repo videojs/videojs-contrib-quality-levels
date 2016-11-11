@@ -4,10 +4,6 @@ import QualityLevelList from './quality-level-list.js';
 
 const noop = () => {};
 
-let qualityLevelList = null;
-let onHlsMediaChange = null;
-let onHlsLoadedMetadata = null;
-
 /**
  * Finds the index of the HLS playlist in a give list of playlists.
  *
@@ -65,24 +61,25 @@ const handleHlsLoadedMetadata = function(qualityLevels, hls) {
  *
  * @param {QualityLevelList} qualityLevels The QualityLevelList to attach events to.
  * @param {Object} hls Hls object to listen to for media events.
+ * @returns {Function} Event handler cleanup function.
  * @function setupHlsHandlers
  */
 const setupHlsHandlers = function(qualityLevels, hls) {
-  if (!onHlsLoadedMetadata) {
-    onHlsLoadedMetadata = () => {
-      handleHlsLoadedMetadata(qualityLevels, hls);
-    };
+  const onHlsLoadedMetadata = () => {
+    handleHlsLoadedMetadata(qualityLevels, hls);
+  };
 
-    hls.playlists.on('loadedmetadata', onHlsLoadedMetadata);
-  }
+  const onHlsMediaChange = () => {
+    handleHlsMediaChange(qualityLevels, hls.playlists);
+  };
 
-  if (!onHlsMediaChange) {
-    onHlsMediaChange = () => {
-      handleHlsMediaChange(qualityLevels, hls.playlists);
-    };
+  hls.playlists.on('loadedmetadata', onHlsLoadedMetadata);
+  hls.playlists.on('mediachange', onHlsMediaChange);
 
-    hls.playlists.on('mediachange', onHlsMediaChange);
-  }
+  return function() {
+    hls.playlists.off('loadedmetadata', onHlsLoadedMetadata);
+    hls.playlists.off('mediachange', onHlsMediaChange);
+  };
 };
 
 /**
@@ -92,26 +89,22 @@ const setupHlsHandlers = function(qualityLevels, hls) {
  * @function setupDashHandlers
  */
 const setupDashHandlers = function() {
-  let beforeDashInit = videojs.Html5DashJS.beforeInitialize || noop;
-
   videojs.Html5DashJS.beforeInitialize = function(player, newMediaPlayer) {
-    beforeDashInit(player, newMediaPlayer);
-
     if (!(player.dash && player.dash.representations)) {
       return;
     }
 
     let qualityLevels = player.qualityLevels();
 
-    newMediaPlayer.on('playbackMetaDataLoaded', () => {
+    const onPlaybackMetaDataLoaded = () => {
       let representations = player.dash.representations();
 
       representations.forEach((rep) => {
         qualityLevels.addQualityLevel(new QualityLevel(rep));
       });
-    });
+    };
 
-    newMediaPlayer.on('qualityChangeRequested', (event) => {
+    const onQualityChangeRequested = (event) => {
       let selectedIndex = event.newQuality;
 
       qualityLevels.selectedIndex_ = selectedIndex;
@@ -119,8 +112,74 @@ const setupDashHandlers = function() {
         selectedIndex,
         type: 'change'
       });
-    });
+    };
+
+    const cleanup = () => {
+      newMediaPlayer.off('playbackMetaDataLoaded', onPlaybackMetaDataLoaded);
+      newMediaPlayer.off('qualityChangeRequested', onQualityChangeRequested);
+      player.off('dispose', cleanup);
+    };
+
+    newMediaPlayer.on('playbackMetaDataLoaded', onPlaybackMetaDataLoaded);
+    newMediaPlayer.on('qualityChangeRequested', onQualityChangeRequested);
+    player.on('dispose', cleanup);
   };
+};
+
+/**
+ * Initialization function for the qualityLevels plugin. Sets up the QualityLevelList and
+ * event handlers.
+ *
+ * @param {Player} player Player object.
+ * @param {Object} options Plugin options object.
+ * @function initPlugin
+ */
+const initPlugin = function(player, options) {
+  let qualityLevelList;
+  let cleanupHandlers;
+  let tech;
+  let hls;
+  let originalPluginFn;
+
+  tech = player.tech({ IWillNotUseThisInPlugins: true });
+  hls = tech.hls;
+  cleanupHandlers = noop;
+  qualityLevelList = new QualityLevelList();
+
+  if (hls) {
+    cleanupHandlers = setupHlsHandlers(qualityLevelList, hls);
+  }
+
+  // Since Dash handlers are setup in videojs.Html5DashJS.beforeInitialize
+  // we only need to override beforeInitialize on the global videojs.Html5DashJS once
+  // instead of on every new source load.
+  if (videojs.Html5DashJS) {
+    setupDashHandlers();
+  }
+
+  const loadstartHandler = function() {
+    qualityLevelList.dispose();
+    cleanupHandlers();
+    if (hls) {
+      cleanupHandlers = setupHlsHandlers(qualityLevelList, hls);
+    }
+  };
+
+  const disposeHandler = function() {
+    qualityLevelList.dispose();
+    cleanupHandlers();
+    player.qualityLevels = originalPluginFn;
+    player.off('loadstart', loadstartHandler);
+    player.off('dispose', disposeHandler);
+  };
+
+  player.on('loadstart', loadstartHandler);
+  player.on('dispose', disposeHandler);
+
+  originalPluginFn = player.qualityLevels;
+  player.qualityLevels = () => qualityLevelList;
+
+  return qualityLevelList;
 };
 
 /**
@@ -131,52 +190,11 @@ const setupDashHandlers = function() {
  * depending on how the plugin is invoked. This may or may not be important
  * to you; if not, remove the wait for "ready"!
  *
+ * @param {Object} options Plugin options object
  * @function qualityLevels
  */
-const qualityLevels = function() {
-  let player = this; // eslint-disable-line
-
-  if (!qualityLevelList) {
-    qualityLevelList = new QualityLevelList();
-
-    player.on('dispose', () => {
-      qualityLevelList.dispose();
-
-      if (onHlsLoadedMetadata) {
-        player.tech_.hls.playlists.off(onHlsLoadedMetadata);
-        onHlsLoadedMetadata = null;
-      }
-
-      if (onHlsMediaChange) {
-        player.tech_.hls.playlists.off(onHlsMediaChange);
-        onHlsMediaChange = null;
-      }
-    });
-
-    // Hls sourceHandler recreated on source change, so we want to re-setup hls
-    // handlers on new source loads.
-    player.on('loadstart', () => {
-      qualityLevelList.dispose();
-      if (player.tech_.hls) {
-        setupHlsHandlers(qualityLevelList, player.tech_.hls);
-      }
-    });
-
-    // Sometimes loadstart will fire before we get here, so we want to set up the handlers
-    // initially as well.
-    if (player.tech_.hls) {
-      setupHlsHandlers(qualityLevelList, player.tech_.hls);
-    }
-
-    // Since Dash handlers are setup in videojs.Html5DashJS.beforeInitialize
-    // we only need to override beforeInitialize on the global videojs.Html5DashJS once
-    // instead of on every new source load.
-    if (videojs.Html5DashJS) {
-      setupDashHandlers();
-    }
-  }
-
-  return qualityLevelList;
+const qualityLevels = function(options) {
+  return initPlugin(this, videojs.mergeOptions({}, options));
 };
 
 // Register the plugin with video.js.
