@@ -1,7 +1,7 @@
 {
   "name": "videojs-contrib-quality-levels",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Exposes a list of quality levels available for the source.",
   "main": "es5/plugin.js",
   "generator-videojs-plugin": {
     "version": "2.2.0"
@@ -38,8 +38,9 @@
     "videojs",
     "videojs-plugin"
   ],
-  "author": "Matthew Neil",
+  "author": "Brightcove, Inc.",
   "license": "Apache-2.0",
+  "copyright": "Copyright Brightcove, Inc. <https://www.brightcove.com/>",
   "browserify": {
     "transform": [
       "browserify-versionify"
@@ -77,7 +78,6 @@
     "test/"
   ],
   "dependencies": {
-    "browserify-versionify": "^1.0.6",
     "video.js": "^5.10.1"
   },
   "devDependencies": {
@@ -91,6 +91,7 @@
     "bluebird": "^3.2.2",
     "browserify": "^12.0.2",
     "browserify-shim": "^3.8.12",
+    "browserify-versionify": "^1.0.6",
     "budo": "^8.0.4",
     "bundle-collapser": "^1.2.1",
     "chg": "^0.3.2",
@@ -114,6 +115,7 @@
     "semver": "^5.3.0",
     "sinon": "~1.14.0",
     "uglify-js": "^2.6.1",
+    "videojs-contrib-hls": "^3.6.7",
     "videojs-standard": "^4.0.0"
   },
   "config": {
