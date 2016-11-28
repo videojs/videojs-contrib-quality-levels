@@ -1,5 +1,5 @@
 import videojs from 'video.js';
-import document from 'global/document';
+import { document } from 'global/document';
 
 /**
  * A list of QualityLevels.
