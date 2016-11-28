@@ -96,6 +96,7 @@ QUnit.test('hls lifecyle', function(assert) {
 
 QUnit.test('dash lifecyle', function(assert) {
   let mediaPlayer = new MockMediaPlayer();
+  const oldBeforeInitialize = videojs.Html5DashJS.beforeInitialize;
 
   this.player.dash = this.player.dash || {};
   this.player.dash.representations = () => representations;
@@ -142,4 +143,9 @@ QUnit.test('dash lifecyle', function(assert) {
 
   assert.equal(qualityLevels.selectedIndex, 2, 'set selectedIndex correctly');
   assert.equal(changeCount, 2, 'triggered change event');
+
+  this.player.trigger('dispose');
+
+  assert.strictEqual(oldBeforeInitialize, videojs.Html5DashJS.beforeInitialize,
+    'beforeInitialize properly restored on player disposal');
 });

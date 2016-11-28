@@ -93,7 +93,9 @@ const setupDashHandlers = function() {
   let oldBeforeInitialize = videojs.Html5DashJS.beforeInitialize;
 
   videojs.Html5DashJS.beforeInitialize = function(player, newMediaPlayer) {
-    oldBeforeInitialize(player, newMediaPlayer);
+    if (oldBeforeInitialize) {
+      oldBeforeInitialize(player, newMediaPlayer);
+    }
 
     if (!(player.dash && player.dash.representations)) {
       return;
