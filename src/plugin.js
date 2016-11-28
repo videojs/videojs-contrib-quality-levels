@@ -86,10 +86,15 @@ const setupHlsHandlers = function(qualityLevels, hls) {
  * Sets up the event handlers for populating and updating the selectedIndex of the
  * QualityLevelList for Dash source.
  *
+ * @return {Function} cleanup function to restore beforeInitialize on Html5DashJS
  * @function setupDashHandlers
  */
 const setupDashHandlers = function() {
+  let oldBeforeInitialize = videojs.Html5DashJS.beforeInitialize;
+
   videojs.Html5DashJS.beforeInitialize = function(player, newMediaPlayer) {
+    oldBeforeInitialize(player, newMediaPlayer);
+
     if (!(player.dash && player.dash.representations)) {
       return;
     }
@@ -124,6 +129,10 @@ const setupDashHandlers = function() {
     newMediaPlayer.on('qualityChangeRequested', onQualityChangeRequested);
     player.on('dispose', cleanup);
   };
+
+  return function() {
+    videojs.Html5DashJS.beforeInitialize = oldBeforeInitialize;
+  };
 };
 
 /**
@@ -135,39 +144,41 @@ const setupDashHandlers = function() {
  * @function initPlugin
  */
 const initPlugin = function(player, options) {
-  let qualityLevelList;
-  let cleanupHandlers;
-  let tech;
-  let hls;
-  let originalPluginFn;
+  let originalPluginFn = player.qualityLevels;
+  let tech = player.tech({ IWillNotUseThisInPlugins: true });
+  let hls = tech.hls;
+  let cleanupHls = noop;
+  let cleanupDash = noop;
 
-  tech = player.tech({ IWillNotUseThisInPlugins: true });
-  hls = tech.hls;
-  cleanupHandlers = noop;
-  qualityLevelList = new QualityLevelList();
+  const qualityLevelList = new QualityLevelList();
 
   if (hls) {
-    cleanupHandlers = setupHlsHandlers(qualityLevelList, hls);
+    cleanupHls = setupHlsHandlers(qualityLevelList, hls);
   }
 
   // Since Dash handlers are setup in videojs.Html5DashJS.beforeInitialize
   // we only need to override beforeInitialize on the global videojs.Html5DashJS once
   // instead of on every new source load.
   if (videojs.Html5DashJS) {
-    setupDashHandlers();
+    cleanupDash = setupDashHandlers();
   }
 
   const loadstartHandler = function() {
     qualityLevelList.dispose();
-    cleanupHandlers();
+    cleanupHls();
+
+    tech = player.tech({ IWillNotUseThisInPlugins: true });
+    hls = tech.hls;
+
     if (hls) {
-      cleanupHandlers = setupHlsHandlers(qualityLevelList, hls);
+      cleanupHls = setupHlsHandlers(qualityLevelList, hls);
     }
   };
 
   const disposeHandler = function() {
     qualityLevelList.dispose();
-    cleanupHandlers();
+    cleanupHls();
+    cleanupDash();
     player.qualityLevels = originalPluginFn;
     player.off('loadstart', loadstartHandler);
     player.off('dispose', disposeHandler);
@@ -178,6 +189,7 @@ const initPlugin = function(player, options) {
 
   originalPluginFn = player.qualityLevels;
   player.qualityLevels = () => qualityLevelList;
+  player.qualityLevels.VERSION = '__VERSION__';
 
   return qualityLevelList;
 };
