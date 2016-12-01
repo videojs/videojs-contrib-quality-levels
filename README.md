@@ -46,20 +46,26 @@ for (let i = 0; i < qualityLevels.length; i++) {
 let currentSelectedQualityLevelIndex = qualityLevels.selectedIndex;
 ```
 
-### HLS
+### Populating the list
+Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the require properties). All properties except are required except `width` and `height`.
 
-Quality levels for an HLS source will be automatically populated when using [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls).
+Example Representation
+```js
+Representation {
+  id: string,
+  width: number,
+  height: number,
+  bitrate: number,
+  enabled: function
+}
+```
 
-### Dash
+The `enabled` function should take an optional boolean to enable or disable the representation and return whether it is currently enabled.
 
-Quality levels for a Dash source will only be automatically populated when using [videojs-contrib-dash](https://github.com/videojs/videojs-contrib-dash) and if the function`player.dash.representations` exists,
-which should return a list of `Representation`s.
+#### HLS
 
-### Other
+Quality levels for an HLS source will be automatically populated when using [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls) version 4.1 or greater.
 
-Other sources quality levels are not yet automatically populated. This can be done manually
-by using a `Representation` object for each quality level availble for your source to create
-a corresponding `QualityLevel` and add it by using `addQualityLevel`.
 
 ## Including the Plugin
 

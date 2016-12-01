@@ -95,8 +95,14 @@ QUnit.test('hls lifecyle', function(assert) {
 });
 
 QUnit.test('dash lifecyle', function(assert) {
+  let beforeInitCount = 0;
   let mediaPlayer = new MockMediaPlayer();
-  const oldBeforeInitialize = videojs.Html5DashJS.beforeInitialize;
+  const origBeforeInitialize = videojs.Html5DashJS.beforeInitialize;
+  const expectBeforeIntitialize = function() {
+    beforeInitCount++;
+  };
+
+  videojs.Html5DashJS.beforeInitialize = expectBeforeIntitialize;
 
   this.player.dash = this.player.dash || {};
   this.player.dash.representations = () => representations;
@@ -115,6 +121,7 @@ QUnit.test('dash lifecyle', function(assert) {
 
   // Mock before initialize being called by dash source handler
   videojs.Html5DashJS.beforeInitialize(this.player, mediaPlayer);
+  assert.equal(beforeInitCount, 1, 'the original beforeInitialize function only called once');
 
   assert.equal(qualityLevels.length, 0, 'no quality levels available before playbackMetaDataLoaded');
   assert.equal(qualityLevels.selectedIndex, -1, 'no quality level selected yet');
@@ -146,6 +153,8 @@ QUnit.test('dash lifecyle', function(assert) {
 
   this.player.trigger('dispose');
 
-  assert.strictEqual(oldBeforeInitialize, videojs.Html5DashJS.beforeInitialize,
+  assert.strictEqual(expectBeforeIntitialize, videojs.Html5DashJS.beforeInitialize,
     'beforeInitialize properly restored on player disposal');
+
+  videojs.Html5DashJS.beforeInitialize = origBeforeInitialize;
 });

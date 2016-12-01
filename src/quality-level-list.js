@@ -1,5 +1,6 @@
 import videojs from 'video.js';
 import { document } from 'global/document';
+import QualityLevel from './quality-level.js';
 
 /**
  * A list of QualityLevels.
@@ -64,16 +65,22 @@ class QualityLevelList extends videojs.EventTarget {
   /**
    * Adds a quality level to the list.
    *
-   * @param {QualityLevel} qualityLevel QualityLevel to add to the list.
+   * @param {Representation|Object} representation The representation of the quality level
+   * @param {string}   representation.id        Unique id of the QualityLevel
+   * @param {number=}  representation.width     Resolution width of the QualityLevel
+   * @param {number=}  representation.height    Resolution height of the QualityLevel
+   * @param {number}   representation.bandwidth Bitrate of the QaulityLevel
+   * @param {Function} representation.enabled   Callback to enable/disable QualityLevel
    * @method addQualityLevel
    */
-  addQualityLevel(qualityLevel) {
-    const index = this.levels_.length;
-
+  addQualityLevel(representation) {
     // Do not add duplicate quality levels
-    if (this.getQualityLevelById(qualityLevel.id)) {
+    if (this.getQualityLevelById(representation.id)) {
       return;
     }
+
+    const qualityLevel = new QualityLevel(representation);
+    const index = this.levels_.length;
 
     if (!('' + index in this)) {
       Object.defineProperty(this, index, {
