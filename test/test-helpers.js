@@ -1,5 +1,3 @@
-import videojs from 'video.js';
-
 export const representations = [
   {
     id: '0',
@@ -38,37 +36,3 @@ export const representations = [
     }
   }
 ];
-
-export class MockPlaylistLoader extends videojs.EventTarget {
-  constructor() {
-    super();
-    this.master = {
-      playlists: [
-        {
-          resolvedUri: '0.m3u8'
-        },
-        {
-          resolvedUri: '1.m3u8'
-        },
-        {
-          resolvedUri: '2.m3u8'
-        },
-        {
-          resolvedUri: '3.m3u8'
-        }
-      ]
-    };
-
-    this.mediaIndex_ = -1;
-  }
-
-  media() {
-    return this.master.playlists[this.mediaIndex_];
-  }
-}
-
-export class MockMediaPlayer extends videojs.EventTarget {
-  constructor() {
-    super();
-  }
-}
