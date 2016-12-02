@@ -5,7 +5,7 @@ import { representations } from './test-helpers';
 QUnit.module('QualityLevelList', {
   beforeEach() {
     this.qualityLevels = new QualityLevelList();
-    this.levels = Array.from(representations);
+    this.levels = representations;
   }
 });
 
