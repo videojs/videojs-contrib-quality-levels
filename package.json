@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Exposes a list of quality levels available for the source.",
   "main": "es5/plugin.js",
+  "jsnext:main": "src/plugin.js",
   "generator-videojs-plugin": {
     "version": "2.2.0"
   },
+  "repository": "videojs/videojs-contrib-quality-levels",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",

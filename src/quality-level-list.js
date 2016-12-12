@@ -1,5 +1,6 @@
 import videojs from 'video.js';
-import document from 'global/document';
+import { document } from 'global/document';
+import QualityLevel from './quality-level.js';
 
 /**
  * A list of QualityLevels.
@@ -64,16 +65,26 @@ class QualityLevelList extends videojs.EventTarget {
   /**
    * Adds a quality level to the list.
    *
-   * @param {QualityLevel} qualityLevel QualityLevel to add to the list.
+   * @param {Representation|Object} representation The representation of the quality level
+   * @param {string}   representation.id        Unique id of the QualityLevel
+   * @param {number=}  representation.width     Resolution width of the QualityLevel
+   * @param {number=}  representation.height    Resolution height of the QualityLevel
+   * @param {number}   representation.bandwidth Bitrate of the QualityLevel
+   * @param {Function} representation.enabled   Callback to enable/disable QualityLevel
+   * @return {QualityLevel} the QualityLevel added to the list
    * @method addQualityLevel
    */
-  addQualityLevel(qualityLevel) {
-    const index = this.levels_.length;
+  addQualityLevel(representation) {
+    let qualityLevel = this.getQualityLevelById(representation.id);
 
     // Do not add duplicate quality levels
-    if (this.getQualityLevelById(qualityLevel.id)) {
-      return;
+    if (qualityLevel) {
+      return qualityLevel;
     }
+
+    const index = this.levels_.length;
+
+    qualityLevel = new QualityLevel(representation);
 
     if (!('' + index in this)) {
       Object.defineProperty(this, index, {
@@ -89,39 +100,41 @@ class QualityLevelList extends videojs.EventTarget {
       qualityLevel,
       type: 'addqualitylevel'
     });
+
+    return qualityLevel;
   }
 
   /**
    * Removes a quality level from the list.
    *
    * @param {QualityLevel} remove QualityLevel to remove to the list.
+   * @return {QualityLevel|null} the QualityLevel removed or null if nothing removed
    * @method removeQualityLevel
    */
   removeQualityLevel(qualityLevel) {
-    let removed = false;
+    let removed = null;
 
     for (let i = 0, l = this.length; i < l; i++) {
       if (this[i] === qualityLevel) {
-        this.levels_.splice(i, 1);
+        removed = this.levels_.splice(i, 1)[0];
 
         if (this.selectedIndex_ === i) {
           this.selectedIndex_ = -1;
         } else if (this.selectedIndex_ > i) {
           this.selectedIndex_--;
         }
-        removed = true;
         break;
       }
     }
 
-    if (!removed) {
-      return;
+    if (removed) {
+      this.trigger({
+        qualityLevel,
+        type: 'removequalitylevel'
+      });
     }
 
-    this.trigger({
-      qualityLevel,
-      type: 'removequalitylevel'
-    });
+    return removed;
   }
 
   /**
