@@ -69,7 +69,7 @@ class QualityLevelList extends videojs.EventTarget {
    * @param {string}   representation.id        Unique id of the QualityLevel
    * @param {number=}  representation.width     Resolution width of the QualityLevel
    * @param {number=}  representation.height    Resolution height of the QualityLevel
-   * @param {number}   representation.bandwidth Bitrate of the QaulityLevel
+   * @param {number}   representation.bandwidth Bitrate of the QualityLevel
    * @param {Function} representation.enabled   Callback to enable/disable QualityLevel
    * @return {QualityLevel} the QualityLevel added to the list
    * @method addQualityLevel

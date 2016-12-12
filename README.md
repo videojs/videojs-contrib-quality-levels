@@ -47,7 +47,7 @@ let currentSelectedQualityLevelIndex = qualityLevels.selectedIndex;
 ```
 
 ### Populating the list
-Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the require properties). All properties except are required except `width` and `height`.
+Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the required properties). All properties are required except `width` and `height`.
 
 Example Representation
 ```js

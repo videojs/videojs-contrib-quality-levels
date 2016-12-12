@@ -28,13 +28,13 @@ QUnit.test('Properly adds QualityLevels to the QualityLevelList', function(asser
   assert.equal(addCount, 2, 'emmitted addqualitylevel event');
   assert.strictEqual(this.qualityLevels[1], expected1, 'can access quality level with index');
 
-  let expected3 = this.qualityLevels.addQualityLevel(this.levels[0]);
+  let expectedDuplicate = this.qualityLevels.addQualityLevel(this.levels[0]);
 
   assert.equal(this.qualityLevels.length, 2, 'does not add duplicate quality level');
   assert.equal(addCount, 2, 'no event emitted on dulicate');
   assert.strictEqual(this.qualityLevels[3], undefined, 'no index property defined');
   assert.strictEqual(this.qualityLevels[0], expected0, 'quality level unchanged');
-  assert.strictEqual(this.qualityLevels[0], expected3, 'adding duplicate returns same reference');
+  assert.strictEqual(this.qualityLevels[0], expectedDuplicate, 'adding duplicate returns same reference');
   assert.strictEqual(this.qualityLevels[1], expected1, 'quality level unchanged');
 });
 
@@ -55,34 +55,34 @@ QUnit.test('Properly removes QualityLevels from the QualityLevelList', function(
 
   assert.equal(this.qualityLevels.length, 4, '4 initial quality levels');
 
-  let removed0 = this.qualityLevels.removeQualityLevel(expected[3]);
+  let removed = this.qualityLevels.removeQualityLevel(expected[3]);
 
   assert.equal(this.qualityLevels.length, 3, 'removed quality level');
   assert.equal(removeCount, 1, 'emitted removequalitylevel event');
-  assert.strictEqual(removed0, expected[3], 'returned removed level');
+  assert.strictEqual(removed, expected[3], 'returned removed level');
   assert.notStrictEqual(this.qualityLevels[3], expected[3], 'nothing at index');
 
-  let removed1 = this.qualityLevels.removeQualityLevel(expected[1]);
+  removed = this.qualityLevels.removeQualityLevel(expected[1]);
 
   assert.equal(this.qualityLevels.length, 2, 'removed quality level');
   assert.equal(removeCount, 2, 'emitted removequalitylevel event');
-  assert.strictEqual(removed1, expected[1], 'returned removed level');
+  assert.strictEqual(removed, expected[1], 'returned removed level');
   assert.notStrictEqual(this.qualityLevels[1], expected[1], 'quality level not at index');
   assert.strictEqual(this.qualityLevels[this.qualityLevels.selectedIndex],
                      expected[2],
                      'selected index properly adjusted on quality level removal');
 
-  let removed2 = this.qualityLevels.removeQualityLevel(expected[3]);
+  removed = this.qualityLevels.removeQualityLevel(expected[3]);
 
   assert.equal(this.qualityLevels.length, 2, 'no quality level removed if not found');
-  assert.equal(removed2, null, 'returned null when nothing removed');
+  assert.equal(removed, null, 'returned null when nothing removed');
   assert.equal(removeCount, 2, 'no event emitted when quality level not found');
 
-  let removed3 = this.qualityLevels.removeQualityLevel(expected[2]);
+  removed = this.qualityLevels.removeQualityLevel(expected[2]);
 
   assert.equal(this.qualityLevels.length, 1, 'quality level removed');
   assert.equal(removeCount, 3, 'emitted removequalitylevel event');
-  assert.strictEqual(removed3, expected[2], 'returned removed level');
+  assert.strictEqual(removed, expected[2], 'returned removed level');
   assert.equal(this.qualityLevels.selectedIndex, -1, 'selectedIndex set to -1 when removing selected quality level');
 });
 
