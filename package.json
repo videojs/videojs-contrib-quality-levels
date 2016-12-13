@@ -80,7 +80,8 @@
     "test/"
   ],
   "dependencies": {
-    "video.js": "^5.10.1"
+    "video.js": "^5.10.1",
+    "browserify-versionify": "^1.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
@@ -93,7 +94,6 @@
     "bluebird": "^3.2.2",
     "browserify": "^12.0.2",
     "browserify-shim": "^3.8.12",
-    "browserify-versionify": "^1.0.6",
     "budo": "^8.0.4",
     "bundle-collapser": "^1.2.1",
     "chg": "^0.3.2",
