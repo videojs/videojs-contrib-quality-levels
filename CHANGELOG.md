@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
- * Make global a dependency instead of devDependency
+_(none)_
 
 --------------------
+
+## 2.0.2 (2016-12-23)
+ * Make global a dependency instead of devDependency
 
 ## 2.0.1 (2016-12-13)
  * Make browserify-versionify a dependency instead of devDependency
