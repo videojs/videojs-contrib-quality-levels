@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+ * Make global a dependency instead of devDependency
 
 --------------------
 
