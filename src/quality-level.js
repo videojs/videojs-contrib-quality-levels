@@ -47,24 +47,26 @@ export default class QualityLevel {
     level.bitrate = representation.bandwidth;
     level.enabled_ = representation.enabled;
 
+    Object.defineProperty(level, 'enabled', {
+      /**
+       * Get whether the QualityLevel is enabled.
+       *
+       * @returns {boolean} True if the QualityLevel is enabled.
+       */
+      get() {
+        return level.enabled_();
+      },
+
+      /**
+       * Enable or disable the QualityLevel.
+       *
+       * @param {boolean} enable true to enable QualityLevel, false to disable.
+       */
+      set(enable) {
+        level.enabled_(enable);
+      }
+    });
+
     return level;
-  }
-
-  /**
-   * Get whether the QualityLevel is enabled.
-   *
-   * @returns {boolean} True if the QualityLevel is enabled.
-   */
-  get enabled() {
-    return this.enabled_();
-  }
-
-  /**
-   * Enable or disable the QualityLevel.
-   *
-   * @param {boolean} enable true to enable QualityLevel, false to disable.
-   */
-  set enabled(enable) {
-    this.enabled_(enable);
   }
 }
