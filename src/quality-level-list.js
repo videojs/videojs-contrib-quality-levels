@@ -1,5 +1,5 @@
 import videojs from 'video.js';
-import { document } from 'global/document';
+import document from 'global/document';
 import QualityLevel from './quality-level.js';
 
 /**
@@ -26,8 +26,6 @@ class QualityLevelList extends videojs.EventTarget {
   constructor() {
     super();
 
-    this.selectedIndex_ = -1;
-
     let list = this; // eslint-disable-line
 
     if (videojs.browser.IS_IE8) {
@@ -40,26 +38,33 @@ class QualityLevelList extends videojs.EventTarget {
     }
 
     list.levels_ = [];
-  }
+    list.selectedIndex_ = -1;
 
-  /**
-   * Get the index of the currently selected QualityLevel.
-   *
-   * @returns {number} The index of the selected QualityLevel. -1 if none selected.
-   * @readonly
-   */
-  get selectedIndex() {
-    return this.selectedIndex_;
-  }
+    /**
+     * Get the index of the currently selected QualityLevel.
+     *
+     * @returns {number} The index of the selected QualityLevel. -1 if none selected.
+     * @readonly
+     */
+    Object.defineProperty(list, 'selectedIndex', {
+      get() {
+        return list.selectedIndex_;
+      }
+    });
 
-  /**
-   * Get the length of the list of QualityLevels.
-   *
-   * @returns {number} The length of the list.
-   * @readonly
-   */
-  get length() {
-    return this.levels_.length;
+    /**
+     * Get the length of the list of QualityLevels.
+     *
+     * @returns {number} The length of the list.
+     * @readonly
+     */
+    Object.defineProperty(list, 'length', {
+      get() {
+        return list.levels_.length;
+      }
+    });
+
+    return list;
   }
 
   /**

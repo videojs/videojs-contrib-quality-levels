@@ -1,3 +1,6 @@
+import videojs from 'video.js';
+import document from 'global/document';
+
 /**
  * A single QualityLevel.
  *
@@ -25,30 +28,45 @@ export default class QualityLevel {
    * @param {Function} representation.enabled   Callback to enable/disable QualityLevel
    */
   constructor(representation) {
-    this.id = representation.id;
-    this.label = this.id;
-    this.width = representation.width;
-    this.height = representation.height;
-    this.bitrate = representation.bandwidth;
 
-    this.enabled_ = representation.enabled;
-  }
+    let level = this; // eslint-disable-line
 
-  /**
-   * Get whether the QualityLevel is enabled.
-   *
-   * @returns {boolean} True if the QualityLevel is enabled.
-   */
-  get enabled() {
-    return this.enabled_();
-  }
+    if (videojs.browser.IS_IE8) {
+      level = document.createElement('custom');
+      for (const prop in QualityLevel.prototype) {
+        if (prop !== 'constructor') {
+          level[prop] = QualityLevel.prototype[prop];
+        }
+      }
+    }
 
-  /**
-   * Enable or disable the QualityLevel.
-   *
-   * @param {boolean} enable true to enable QualityLevel, false to disable.
-   */
-  set enabled(enable) {
-    this.enabled_(enable);
+    level.id = representation.id;
+    level.label = level.id;
+    level.width = representation.width;
+    level.height = representation.height;
+    level.bitrate = representation.bandwidth;
+    level.enabled_ = representation.enabled;
+
+    Object.defineProperty(level, 'enabled', {
+      /**
+       * Get whether the QualityLevel is enabled.
+       *
+       * @returns {boolean} True if the QualityLevel is enabled.
+       */
+      get() {
+        return level.enabled_();
+      },
+
+      /**
+       * Enable or disable the QualityLevel.
+       *
+       * @param {boolean} enable true to enable QualityLevel, false to disable.
+       */
+      set(enable) {
+        level.enabled_(enable);
+      }
+    });
+
+    return level;
   }
 }
