@@ -1,3 +1,6 @@
+import videojs from 'video.js';
+import document from 'global/document';
+
 /**
  * A single QualityLevel.
  *
@@ -25,13 +28,26 @@ export default class QualityLevel {
    * @param {Function} representation.enabled   Callback to enable/disable QualityLevel
    */
   constructor(representation) {
-    this.id = representation.id;
-    this.label = this.id;
-    this.width = representation.width;
-    this.height = representation.height;
-    this.bitrate = representation.bandwidth;
 
-    this.enabled_ = representation.enabled;
+    let level = this; // eslint-disable-line
+
+    if (videojs.browser.IS_IE8) {
+      level = document.createElement('custom');
+      for (const prop in QualityLevel.prototype) {
+        if (prop !== 'constructor') {
+          level[prop] = QualityLevel.prototype[prop];
+        }
+      }
+    }
+
+    level.id = representation.id;
+    level.label = level.id;
+    level.width = representation.width;
+    level.height = representation.height;
+    level.bitrate = representation.bandwidth;
+    level.enabled_ = representation.enabled;
+
+    return level;
   }
 
   /**

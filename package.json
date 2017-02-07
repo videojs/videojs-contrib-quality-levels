@@ -16,7 +16,7 @@
     "build:js:bannerize": "bannerize dist/videojs-contrib-quality-levels.js --banner=scripts/banner.ejs",
     "build:js:browserify": "browserify . -g browserify-shim -s videojs-contrib-quality-levels -o dist/videojs-contrib-quality-levels.js",
     "build:js:collapse": "bundle-collapser dist/videojs-contrib-quality-levels.js -o dist/videojs-contrib-quality-levels.min.js",
-    "build:js:uglify": "uglifyjs dist/videojs-contrib-quality-levels.min.js --comments --mangle --compress -o dist/videojs-contrib-quality-levels.min.js",
+    "build:js:uglify": "uglifyjs dist/videojs-contrib-quality-levels.min.js --support-ie8 --comments --mangle --compress -o dist/videojs-contrib-quality-levels.min.js",
     "build:test": "babel-node scripts/build-test.js",
     "change": "chg add",
     "clean": "rimraf dist test/dist es5 && mkdirp dist test/dist es5",
@@ -117,7 +117,7 @@
     "semver": "^5.3.0",
     "sinon": "~1.14.0",
     "uglify-js": "^2.6.1",
-    "videojs-contrib-hls": "^3.6.7",
+    "videojs-contrib-hls": "^4.1.0",
     "videojs-standard": "^4.0.0"
   },
   "config": {
