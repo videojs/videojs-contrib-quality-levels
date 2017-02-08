@@ -1,6 +1,9 @@
 import videojs from 'video.js';
 import QualityLevelList from './quality-level-list.js';
 
+// vjs 5/6 support
+const registerPlugin = videojs.registerPlugin || videojs.plugin;
+
 /**
  * Initialization function for the qualityLevels plugin. Sets up the QualityLevelList and
  * event handlers.
@@ -44,7 +47,7 @@ const qualityLevels = function(options) {
 };
 
 // Register the plugin with video.js.
-videojs.plugin('qualityLevels', qualityLevels);
+registerPlugin('qualityLevels', qualityLevels);
 
 // Include the version number.
 qualityLevels.VERSION = '__VERSION__';
