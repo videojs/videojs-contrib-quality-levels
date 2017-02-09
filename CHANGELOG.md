@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* chore: video.js 5/6 compatibility and travis update (#12)
+_(none)_
 
 --------------------
+
+## 2.0.3 (2017-02-09)
+* chore: video.js 5/6 compatibility and travis update (#12)
 
 ## 2.0.2 (2016-12-23)
  * Make global a dependency instead of devDependency
