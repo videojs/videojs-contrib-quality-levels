@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* chore: video.js 5/6 compatibility and travis update (#12)
 
 --------------------
 
