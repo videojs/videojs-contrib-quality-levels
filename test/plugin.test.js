@@ -37,8 +37,8 @@ QUnit.module('videojs-contrib-quality-levels', {
 
 QUnit.test('registers itself with video.js', function(assert) {
   assert.strictEqual(
-    Player.prototype.qualityLevels,
-    plugin,
+    typeof Player.prototype.qualityLevels,
+    'function',
     'videojs-contrib-quality-levels plugin was registered'
   );
 });
