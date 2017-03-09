@@ -32,18 +32,37 @@ let player = videojs('my-video');
 
 let qualityLevels = player.qualityLevels();
 
-// Loop through the list of quality levels and disable all qualities with more than
-// 720 horizontal lines of resolution.
-for (let i = 0; i < qualityLevels.length; i++) {
-  let qualityLevel = qualityLevels[i];
-  if (qualityLevel.height > 720) {
-    qualityLevel.enabled = false;
-  } else {
-    qualityLevel.enabled = true;
-  }
-}
+// disable quality levels with less than 720 horizontal lines of resolution when added
+// to the list.
+qualityLevels.on('addqualitylevel', function(event) {
+  let qualityLevel = event.qualityLevel;
 
-let currentSelectedQualityLevelIndex = qualityLevels.selectedIndex;
+  if (qualityLevel.height >= 720) {
+    qualityLevel.enabled = true;
+  } else {
+    qualityLevel.enabled = false;
+  }
+});
+
+// example function that will toggle quality levels between SD and HD, defining and HD
+// quality as having 720 horizontal lines of resolution or more
+let toggleQuality = (function() {
+  let enable720 = true;
+
+  return function() {
+    for (var i = 0; i < qualityLevels.length; i++) {
+      let qualityLevel = qualityLevels[i];
+      if (qualityLevel.width >= 720) {
+        qualityLevel.enabled = enable720;
+      } else {
+        qualityLevel.enabled = !enable720;
+      }
+    }
+    enable720 = !enable720;
+  };
+})();
+
+let currentSelectedQualityLevelIndex = qualityLevels.selectedIndex; // -1 if no level selected
 ```
 
 ### Populating the list
