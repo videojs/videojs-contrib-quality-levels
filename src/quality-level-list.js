@@ -173,11 +173,14 @@ class QualityLevelList extends videojs.EventTarget {
 
 /**
  * change - The selected QualityLevel has changed.
+ * changerendered - Should be triggered once the selected level referenced by the most
+ *  recent change event is rendered on screen.
  * addqualitylevel - A QualityLevel has been added to the QualityLevelList.
  * removequalitylevel - A QualityLevel has been removed from the QualityLevelList.
  */
 QualityLevelList.prototype.allowedEvents_ = {
   change: 'change',
+  changerendered: 'changerendered',
   addqualitylevel: 'addqualitylevel',
   removequalitylevel: 'removequalitylevel'
 };
