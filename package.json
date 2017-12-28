@@ -1,6 +1,6 @@
 {
   "name": "videojs-contrib-quality-levels",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Exposes a list of quality levels available for the source.",
   "main": "es5/plugin.js",
   "jsnext:main": "src/plugin.js",
@@ -82,7 +82,7 @@
   "dependencies": {
     "browserify-versionify": "^1.0.6",
     "global": "^4.3.1",
-    "video.js": "^5.10.1"
+    "video.js": "^5.10.1 || ^6.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
