@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Allow video js 6 to be used (#25)
 
 --------------------
 
