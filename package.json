@@ -1,6 +1,6 @@
 {
   "name": "videojs-contrib-quality-levels",
-  "version": "2.0.4",
+  "version": "2.0.3",
   "description": "Exposes a list of quality levels available for the source.",
   "main": "es5/plugin.js",
   "jsnext:main": "src/plugin.js",
