@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Allow video js 6 to be used (#25)
+_(none)_
 
 --------------------
+
+## 2.0.4 (2018-01-22)
+* Allow video js 6 to be used (#25)
 
 ## 2.0.3 (2017-02-09)
 * chore: video.js 5/6 compatibility and travis update (#12)
