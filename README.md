@@ -1,5 +1,7 @@
 # videojs-contrib-quality-levels
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/videojs/videojs-contrib-quality-levels.svg)](https://greenkeeper.io/)
+
 Exposes a list of quality levels available for the source.
 
 ## Table of Contents
