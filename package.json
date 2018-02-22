@@ -116,7 +116,7 @@
     "rimraf": "^2.5.1",
     "semver": "^5.3.0",
     "sinon": "~1.14.0",
-    "uglify-js": "^2.6.1",
+    "uglify-js": "^3.3.12",
     "videojs-contrib-hls": "^4.1.0",
     "videojs-standard": "^4.0.0"
   },
