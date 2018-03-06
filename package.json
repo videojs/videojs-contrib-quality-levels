@@ -95,7 +95,7 @@
     "bluebird": "^3.2.2",
     "browserify": "^12.0.2",
     "browserify-shim": "^3.8.12",
-    "budo": "^8.0.4",
+    "budo": "^11.2.0",
     "bundle-collapser": "^1.2.1",
     "chg": "^0.3.2",
     "doctoc": "^0.15.0",
