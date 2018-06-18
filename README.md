@@ -6,8 +6,21 @@ Exposes a list of quality levels available for the source.
 
 ## Table of Contents
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Installation
+
+- [Installation](#installation)
+- [Using](#using)
+  - [Populating the list](#populating-the-list)
+    - [HLS](#hls)
+- [Including the Plugin](#including-the-plugin)
+  - [`<script>` Tag](#script-tag)
+  - [Browserify](#browserify)
+  - [RequireJS/AMD](#requirejsamd)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
 
 ```sh
