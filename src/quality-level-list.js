@@ -151,7 +151,7 @@ class QualityLevelList extends videojs.EventTarget {
    */
   getQualityLevelById(id) {
     for (let i = 0, l = this.length; i < l; i++) {
-      let level = this[i];
+      const level = this[i];
 
       if (level.id === id) {
         return level;

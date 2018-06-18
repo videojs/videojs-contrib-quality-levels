@@ -16,19 +16,19 @@ QUnit.test('Properly adds QualityLevels to the QualityLevelList', function(asser
     addCount++;
   });
 
-  let expected0 = this.qualityLevels.addQualityLevel(this.levels[0]);
+  const expected0 = this.qualityLevels.addQualityLevel(this.levels[0]);
 
   assert.equal(this.qualityLevels.length, 1, 'added quality level');
   assert.equal(addCount, 1, 'emmitted addqualitylevel event');
   assert.strictEqual(this.qualityLevels[0], expected0, 'can access quality level with index');
 
-  let expected1 = this.qualityLevels.addQualityLevel(this.levels[1]);
+  const expected1 = this.qualityLevels.addQualityLevel(this.levels[1]);
 
   assert.equal(this.qualityLevels.length, 2, 'added quality level');
   assert.equal(addCount, 2, 'emmitted addqualitylevel event');
   assert.strictEqual(this.qualityLevels[1], expected1, 'can access quality level with index');
 
-  let expectedDuplicate = this.qualityLevels.addQualityLevel(this.levels[0]);
+  const expectedDuplicate = this.qualityLevels.addQualityLevel(this.levels[0]);
 
   assert.equal(this.qualityLevels.length, 2, 'does not add duplicate quality level');
   assert.equal(addCount, 2, 'no event emitted on dulicate');
