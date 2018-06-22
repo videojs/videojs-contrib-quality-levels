@@ -5,7 +5,7 @@
   "main": "dist/videojs-contrib-quality-levels.cjs.js",
   "jsnext:main": "src/plugin.js",
   "generator-videojs-plugin": {
-    "version": "6.0.8"
+    "version": "6.0.9"
   },
   "repository": "videojs/videojs-contrib-quality-levels",
   "scripts": {
@@ -37,16 +37,6 @@
   "author": "Brightcove, Inc.",
   "license": "Apache-2.0",
   "copyright": "Copyright Brightcove, Inc. <https://www.brightcove.com/>",
-  "browserify": {
-    "transform": [
-      "browserify-versionify"
-    ]
-  },
-  "browserify-shim": {
-    "qunit": "global:QUnit",
-    "sinon": "global:sinon",
-    "video.js": "global:videojs"
-  },
   "style": "dist/videojs-contrib-quality-levels.css",
   "videojs-plugin": {
     "style": "dist/videojs-contrib-quality-levels.css",
@@ -69,30 +59,17 @@
     "test/"
   ],
   "dependencies": {
-    "browserify-versionify": "^1.0.6",
     "global": "^4.3.2",
-    "video.js": "6.10.2 || ^7.0.3"
+    "video.js": "^6 || ^7"
   },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
-    "babel-plugin-transform-es3-property-literals": "^6.8.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-env": "^1.7.0",
-    "babelify": "^7.3.0",
-    "bluebird": "^3.2.2",
-    "browserify": "^12.0.2",
-    "browserify-shim": "^3.8.12",
-    "budo": "^8.0.4",
-    "bundle-collapser": "^1.2.1",
-    "chg": "^0.3.2",
     "conventional-changelog-cli": "^2.0.0",
     "conventional-changelog-videojs": "^3.0.0",
     "doctoc": "^1.3.1",
-    "ghooks": "^1.3.2",
-    "glob": "^6.0.3",
     "husky": "^0.14.3",
     "in-publish": "^2.0.0",
     "jsdoc": "^3.4.3",
@@ -103,7 +80,6 @@
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^2.0.0",
     "karma-safari-launcher": "^1.0.0",
-    "lodash": "^4.11.2",
     "mkdirp": "^0.5.1",
     "npm-run-all": "^4.1.2",
     "qunit": "^2.5.1",
@@ -121,11 +97,6 @@
     "uglify-es": "^3.3.9",
     "videojs-contrib-hls": "^4.1.0",
     "videojs-standard": "^6.0.0"
-  },
-  "config": {
-    "ghooks": {
-      "pre-push": "npm run lint"
-    }
   },
   "module": "dist/videojs-contrib-quality-levels.es.js",
   "browserslist": [

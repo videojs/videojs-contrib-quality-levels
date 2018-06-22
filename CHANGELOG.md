@@ -1,11 +1,3 @@
-CHANGELOG
-=========
-
-## HEAD (Unreleased)
-_(none)_
-
---------------------
-
 ## 2.0.4 (2018-01-22)
 * Allow video js 6 to be used (#25)
 
