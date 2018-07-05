@@ -1,0 +1,14 @@
+{
+  "generator-videojs-plugin": {
+    "scope": "",
+    "name": "contrib-quality-levels",
+    "description": "Exposes a list of quality levels available for the source.",
+    "author": "Brightcove, Inc.",
+    "license": "apache2",
+    "pluginType": "advanced",
+    "css": false,
+    "docs": true,
+    "lang": false,
+    "husky": "lint"
+  }
+}

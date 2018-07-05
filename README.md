@@ -1,13 +1,43 @@
 # videojs-contrib-quality-levels
-
+[![Build Status](https://travis-ci.org/videojs/videojs-contrib-quality-levels.svg?branch=master)](https://travis-ci.org/videojs/videojs-contrib-quality-levels)
 [![Greenkeeper badge](https://badges.greenkeeper.io/videojs/videojs-contrib-quality-levels.svg)](https://greenkeeper.io/)
+[![Slack Status](http://slack.videojs.com/badge.svg)](http://slack.videojs.com)
 
-Exposes a list of quality levels available for the source.
+[![NPM](https://nodei.co/npm/videojs-contrib-quality-levels.png?downloads=true&downloadRank=true)](https://nodei.co/npm/videojs-contrib-quality-levels/)
 
-## Table of Contents
+A plugin that displays user-friendly messages when Video.js encounters an error.
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+Maintenance Status: Stable
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Installation](#installation)
+- [Using](#using)
+  - [Populating the list](#populating-the-list)
+    - [HLS](#hls)
+- [Including the Plugin](#including-the-plugin)
+  - [`<script>` Tag](#script-tag)
+  - [Browserify](#browserify)
+  - [RequireJS/AMD](#requirejsamd)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Installation
+
+- [Installation](#installation)
+- [Using](#using)
+  - [Populating the list](#populating-the-list)
+    - [HLS](#hls)
+- [Including the Plugin](#including-the-plugin)
+  - [`<script>` Tag](#script-tag)
+  - [Browserify](#browserify)
+  - [RequireJS/AMD](#requirejsamd)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
 
 ```sh

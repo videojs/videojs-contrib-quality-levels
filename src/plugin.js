@@ -13,7 +13,7 @@ const registerPlugin = videojs.registerPlugin || videojs.plugin;
  * @function initPlugin
  */
 const initPlugin = function(player, options) {
-  let originalPluginFn = player.qualityLevels;
+  const originalPluginFn = player.qualityLevels;
 
   const qualityLevelList = new QualityLevelList();
 
