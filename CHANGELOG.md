@@ -1,3 +1,10 @@
+<a name="2.0.6"></a>
+## [2.0.6](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.5...v2.0.6) (2018-08-03)
+
+### Bug Fixes
+
+* babel the es dist, by updating the generator (#45) ([0123ee8](https://github.com/videojs/videojs-contrib-quality-levels/commit/0123ee8)), closes [#45](https://github.com/videojs/videojs-contrib-quality-levels/issues/45)
+
 <a name="2.0.5"></a>
 ## 2.0.5 (2018-07-05)
 
