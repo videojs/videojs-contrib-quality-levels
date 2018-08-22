@@ -51,7 +51,7 @@ export default class QualityLevel {
       /**
        * Get whether the QualityLevel is enabled.
        *
-       * @returns {boolean} True if the QualityLevel is enabled.
+       * @return {boolean} True if the QualityLevel is enabled.
        */
       get() {
         return level.enabled_();
