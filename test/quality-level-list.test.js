@@ -69,8 +69,8 @@ QUnit.test('Properly removes QualityLevels from the QualityLevelList', function(
   assert.strictEqual(removed, expected[1], 'returned removed level');
   assert.notStrictEqual(this.qualityLevels[1], expected[1], 'quality level not at index');
   assert.strictEqual(this.qualityLevels[this.qualityLevels.selectedIndex],
-                     expected[2],
-                     'selected index properly adjusted on quality level removal');
+    expected[2],
+    'selected index properly adjusted on quality level removal');
 
   removed = this.qualityLevels.removeQualityLevel(expected[3]);
 
@@ -94,18 +94,18 @@ QUnit.test('can get quality level by id', function(assert) {
   });
 
   assert.strictEqual(this.qualityLevels.getQualityLevelById('0'),
-                     expected[0],
-                     'found quality level with id "0"');
+    expected[0],
+    'found quality level with id "0"');
   assert.strictEqual(this.qualityLevels.getQualityLevelById('1'),
-                     expected[1],
-                     'found quality level with id "1"');
+    expected[1],
+    'found quality level with id "1"');
   assert.strictEqual(this.qualityLevels.getQualityLevelById('2'),
-                     expected[2],
-                     'found quality level with id "2"');
+    expected[2],
+    'found quality level with id "2"');
   assert.strictEqual(this.qualityLevels.getQualityLevelById('3'),
-                     expected[3],
-                     'found quality level with id "3"');
+    expected[3],
+    'found quality level with id "3"');
   assert.strictEqual(this.qualityLevels.getQualityLevelById('4'),
-                     null,
-                     'no quality level with id "4" found');
+    null,
+    'no quality level with id "4" found');
 });

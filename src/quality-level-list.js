@@ -146,7 +146,7 @@ class QualityLevelList extends videojs.EventTarget {
    * Searches for a QualityLevel with the given id.
    *
    * @param {string} id The id of the QualityLevel to find.
-   * @returns {QualityLevel|null} The QualityLevel with id, or null if not found.
+   * @return {QualityLevel|null} The QualityLevel with id, or null if not found.
    * @method getQualityLevelById
    */
   getQualityLevelById(id) {
