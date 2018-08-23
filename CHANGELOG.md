@@ -1,3 +1,10 @@
+<a name="2.0.7"></a>
+## [2.0.7](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.6...v2.0.7) (2018-08-23)
+
+### Chores
+
+* generator v7 (#50) ([7837d93](https://github.com/videojs/videojs-contrib-quality-levels/commit/7837d93)), closes [#50](https://github.com/videojs/videojs-contrib-quality-levels/issues/50)
+
 <a name="2.0.6"></a>
 ## [2.0.6](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.5...v2.0.6) (2018-08-03)
 
