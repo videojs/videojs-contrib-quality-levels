@@ -1,5 +1,6 @@
 import videojs from 'video.js';
 import QualityLevelList from './quality-level-list.js';
+import {version as VERSION} from '../package.json';
 
 // vjs 5/6 support
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
@@ -50,6 +51,6 @@ const qualityLevels = function(options) {
 registerPlugin('qualityLevels', qualityLevels);
 
 // Include the version number.
-qualityLevels.VERSION = '__VERSION__';
+qualityLevels.VERSION = VERSION;
 
 export default qualityLevels;
