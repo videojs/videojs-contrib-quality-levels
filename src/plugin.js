@@ -27,7 +27,7 @@ const initPlugin = function(player, options) {
   player.on('dispose', disposeHandler);
 
   player.qualityLevels = () => qualityLevelList;
-  player.qualityLevels.VERSION = '__VERSION__';
+  player.qualityLevels.VERSION = VERSION;
 
   return qualityLevelList;
 };
