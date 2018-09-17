@@ -1,3 +1,18 @@
+<a name="2.0.8"></a>
+## [2.0.8](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.7...v2.0.8) (2018-09-17)
+
+### Bug Fixes
+
+* Remove the postinstall script to prevent install issues (#54) ([7562cdb](https://github.com/videojs/videojs-contrib-quality-levels/commit/7562cdb)), closes [#54](https://github.com/videojs/videojs-contrib-quality-levels/issues/54)
+* report correct version (#57) ([1992300](https://github.com/videojs/videojs-contrib-quality-levels/commit/1992300)), closes [#57](https://github.com/videojs/videojs-contrib-quality-levels/issues/57)
+
+### Chores
+
+* update to generator-videojs-plugin[@7](https://github.com/7).2.0 ([9660214](https://github.com/videojs/videojs-contrib-quality-levels/commit/9660214))
+* **package:** update rollup to version 0.66.0 (#56) ([0467b62](https://github.com/videojs/videojs-contrib-quality-levels/commit/0467b62)), closes [#56](https://github.com/videojs/videojs-contrib-quality-levels/issues/56)
+* **package:** update videojs-contrib-hls to version 5.14.1 (#31) ([b1a17fa](https://github.com/videojs/videojs-contrib-quality-levels/commit/b1a17fa)), closes [#31](https://github.com/videojs/videojs-contrib-quality-levels/issues/31)
+* **package:** update videojs-generate-rollup-config to version 2.2.0 (#55) ([4ad0a93](https://github.com/videojs/videojs-contrib-quality-levels/commit/4ad0a93)), closes [#55](https://github.com/videojs/videojs-contrib-quality-levels/issues/55)
+
 <a name="2.0.7"></a>
 ## [2.0.7](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.6...v2.0.7) (2018-08-23)
 
