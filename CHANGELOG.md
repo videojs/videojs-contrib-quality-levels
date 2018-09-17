@@ -1,3 +1,10 @@
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.8...v2.0.9) (2018-09-17)
+
+### Bug Fixes
+
+* another version reporting issue ([9003e8d](https://github.com/videojs/videojs-contrib-quality-levels/commit/9003e8d))
+
 <a name="2.0.8"></a>
 ## [2.0.8](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.7...v2.0.8) (2018-09-17)
 
