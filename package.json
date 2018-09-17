@@ -76,7 +76,7 @@
     "semver": "^5.1.0",
     "shx": "^0.3.2",
     "sinon": "^6.1.5",
-    "videojs-contrib-hls": "^4.1.0",
+    "videojs-contrib-hls": "^5.14.1",
     "videojs-generate-karma-config": "~3.0.0",
     "videojs-generate-rollup-config": "~2.2.0",
     "videojs-standard": "~7.1.0",
