@@ -57,6 +57,7 @@ With this list, you can:
  * see which quality levels are available for the current source
  * enable or disable specific quality levels to change which levels are selected by ABR
  * see which quality level is currently selected by ABR
+ * detect when the selected quality level changes
 
 Example
 ```js
@@ -84,7 +85,7 @@ let toggleQuality = (function() {
   return function() {
     for (var i = 0; i < qualityLevels.length; i++) {
       let qualityLevel = qualityLevels[i];
-      if (qualityLevel.width >= 720) {
+      if (qualityLevel.height >= 720) {
         qualityLevel.enabled = enable720;
       } else {
         qualityLevel.enabled = !enable720;
@@ -95,6 +96,16 @@ let toggleQuality = (function() {
 })();
 
 let currentSelectedQualityLevelIndex = qualityLevels.selectedIndex; // -1 if no level selected
+
+// Listen to change events for when the player selects a new quality level
+// NOTE: Just like populating the list, it is up to the consumer of this plugin to
+// implement triggering of the 'change' event. For example, @videojs/http-streaming
+// triggeres the 'change' event on the QualityLevelList when its ABR algorithm
+// selects a new level
+qualityLevels.on('change', function() {
+  console.log('Quality Level changed!');
+  console.log('New level:', qualityLevels[qualityLevels.selectedIndex]);
+});
 ```
 
 ### Populating the list
@@ -115,7 +126,7 @@ The `enabled` function should take an optional boolean to enable or disable the 
 
 #### HLS
 
-Quality levels for an HLS source will be automatically populated when using [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls) version 4.1 or greater.
+Quality levels for an HLS source will be automatically populated when using (recommended) [@videojs/http-streaming](https://github.com/videojs/http-streaming) (http-streaming is included by default in videojs v7+) or when using [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls) version 4.1 or greater.
 
 
 ## Including the Plugin
