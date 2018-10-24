@@ -37,9 +37,7 @@
   "author": "Brightcove, Inc.",
   "license": "Apache-2.0",
   "copyright": "Copyright Brightcove, Inc. <https://www.brightcove.com/>",
-  "style": "dist/videojs-contrib-quality-levels.css",
   "videojs-plugin": {
-    "style": "dist/videojs-contrib-quality-levels.css",
     "script": "dist/videojs-contrib-quality-levels.min.js"
   },
   "vjsstandard": {
