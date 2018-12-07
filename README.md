@@ -15,8 +15,10 @@ Maintenance Status: Stable
 
 - [Installation](#installation)
 - [Using](#using)
+- [Supporting Quality Levels for your source](#supporting-quality-levels-for-your-source)
   - [Populating the list](#populating-the-list)
-    - [HLS](#hls)
+  - [Triggering the 'change' event](#triggering-the-change-event)
+  - [Supported Projects](#supported-projects)
 - [Including the Plugin](#including-the-plugin)
   - [`<script>` Tag](#script-tag)
   - [Browserify](#browserify)
@@ -57,6 +59,7 @@ With this list, you can:
  * see which quality levels are available for the current source
  * enable or disable specific quality levels to change which levels are selected by ABR
  * see which quality level is currently selected by ABR
+ * detect when the selected quality level changes
 
 Example
 ```js
@@ -84,7 +87,7 @@ let toggleQuality = (function() {
   return function() {
     for (var i = 0; i < qualityLevels.length; i++) {
       let qualityLevel = qualityLevels[i];
-      if (qualityLevel.width >= 720) {
+      if (qualityLevel.height >= 720) {
         qualityLevel.enabled = enable720;
       } else {
         qualityLevel.enabled = !enable720;
@@ -95,7 +98,17 @@ let toggleQuality = (function() {
 })();
 
 let currentSelectedQualityLevelIndex = qualityLevels.selectedIndex; // -1 if no level selected
+
+// Listen to change events for when the player selects a new quality level
+qualityLevels.on('change', function() {
+  console.log('Quality Level changed!');
+  console.log('New level:', qualityLevels[qualityLevels.selectedIndex]);
+});
 ```
+## Supporting Quality Levels for your source
+This project just provides the framework for working with source quality levels. Just including this project alongside videojs does not necessarily mean that there will be levels available in the list or that any events will be triggered. Some projects within the videojs org support this project and automatically populate the list and trigger `change` events when the selected quality level changes. See the [Supported Projects](#supported-projects) section for a list of these projects.
+
+If you are not using one of the supported projects, but still want to use quality levels with your source, you will have to implement your own plugin that populates the list and triggers change events when the selected level changes. Implementing such a plugin is very specific to the source in question, so it is difficult to provide specific examples, but it will most likely require a custom middleware, source handler, or tech.
 
 ### Populating the list
 Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the required properties). All properties are required except `width` and `height`.
@@ -113,10 +126,34 @@ Representation {
 
 The `enabled` function should take an optional boolean to enable or disable the representation and return whether it is currently enabled.
 
-#### HLS
+You can also remove quality levels from the list using `QualityLevelList.removeQualityLevel`. Call this function with the reference to the `QualityLevel` object you wish to remove  The `QualityLevelList.selectedIndex` property will automatically be updated when a quality level is removed so that it still refers to the correct level. If the currently selected level is removed, the `selectedIndex` will be set to `-1`.
 
-Quality levels for an HLS source will be automatically populated when using [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls) version 4.1 or greater.
+### Triggering the 'change' event
 
+When your playback plugin changes the selected quality for playback, you will also have to trigger the `change` event on the `QualityLevelList` and update the `QualityLevelList.selectedIndex_`, as it does not have knowledge of which quality is active in playback.
+
+```js
+let player = videojs('my-video');
+
+let qualityLevels = player.qualityLevels();
+
+qualityLevels.selectedIndex_ = 0;
+qualityLevels.trigger({ type: 'change', selectedIndex: 0 });
+```
+
+### Supported Projects
+
+The following projects have built-in support for videojs-contrib-quality-levels and will automatically populate the list with available levels and trigger `change` events when the quality level changes.
+
+* HLS
+  * [@videojs/http-streaming](https://github.com/videojs/http-streaming)
+    * Recommeneded for HLS
+    * http-streaming is included by default with video.js version 7+
+  * [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls)
+    * version 4.1+
+* DASH
+  * [@videojs/http-streaming](https://github.com/videojs/http-streaming)
+    * http-streaming is included by default with video.js version 7+
 
 ## Including the Plugin
 
