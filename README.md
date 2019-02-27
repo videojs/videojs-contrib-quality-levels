@@ -5,7 +5,7 @@
 
 [![NPM](https://nodei.co/npm/videojs-contrib-quality-levels.png?downloads=true&downloadRank=true)](https://nodei.co/npm/videojs-contrib-quality-levels/)
 
-A plugin that displays user-friendly messages when Video.js encounters an error.
+A library that exposes a list of quality levels available for the source.
 
 Maintenance Status: Stable
 
