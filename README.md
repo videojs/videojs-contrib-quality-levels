@@ -147,7 +147,7 @@ The following projects have built-in support for videojs-contrib-quality-levels 
 
 * HLS
   * [@videojs/http-streaming](https://github.com/videojs/http-streaming)
-    * Recommeneded for HLS
+    * Recommended for HLS
     * http-streaming is included by default with video.js version 7+
   * [videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls)
     * version 4.1+
