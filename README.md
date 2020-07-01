@@ -54,12 +54,12 @@ bower install  --save videojs-contrib-quality-levels
 
 ## Using
 
-The list of `QualiyLevel`s can be accessed using `qualityLevels()` on the Player object.
+The list of `QualiyLevels` can be accessed using `qualityLevels()` on the Player object.
 With this list, you can:
- * see which quality levels are available for the current source
- * enable or disable specific quality levels to change which levels are selected by ABR
- * see which quality level is currently selected by ABR
- * detect when the selected quality level changes
+ * See which quality levels are available for the current source
+ * Enable or disable specific quality levels to change which levels are selected by ABR
+ * See which quality level is currently selected by ABR
+ * Detect when the selected quality level changes
 
 Example
 ```js
@@ -106,9 +106,9 @@ qualityLevels.on('change', function() {
 });
 ```
 ## Supporting Quality Levels for your source
-This project just provides the framework for working with source quality levels. Just including this project alongside videojs does not necessarily mean that there will be levels available in the list or that any events will be triggered. Some projects within the videojs org support this project and automatically populate the list and trigger `change` events when the selected quality level changes. See the [Supported Projects](#supported-projects) section for a list of these projects.
+This project provides the framework for working with source quality levels. Just including this project alongside videojs does not necessarily mean that there will be levels available in the list or that any events will be triggered. Some projects within the videojs org supports this project and automatically populates the list and triggers `change` events when the selected quality level changes. See the [Supported Projects](#supported-projects) section for a list of these projects.
 
-If you are not using one of the supported projects, but still want to use quality levels with your source, you will have to implement your own plugin that populates the list and triggers change events when the selected level changes. Implementing such a plugin is very specific to the source in question, so it is difficult to provide specific examples, but it will most likely require a custom middleware, source handler, or tech.
+If you are not using one of the supported projects, but still want to use quality levels with your source, you will have to implement your own plugin that populates the list and triggers change events when selected level changes. Implementing such a plugin is very specific to the source in question, so it is difficult to provide specific examples, but will most likely require a custom middleware, source handler, or tech.
 
 ### Populating the list
 Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the required properties). All properties are required except `width` and `height`.
@@ -126,7 +126,7 @@ Representation {
 
 The `enabled` function should take an optional boolean to enable or disable the representation and return whether it is currently enabled.
 
-You can also remove quality levels from the list using `QualityLevelList.removeQualityLevel`. Call this function with the reference to the `QualityLevel` object you wish to remove  The `QualityLevelList.selectedIndex` property will automatically be updated when a quality level is removed so that it still refers to the correct level. If the currently selected level is removed, the `selectedIndex` will be set to `-1`.
+You can also remove quality levels from the list using `QualityLevelList.removeQualityLevel`. Call this function with the reference to the `QualityLevel` object you wish to remove. The `QualityLevelList.selectedIndex` property will automatically be updated when a quality level is removed so that it still refers to the correct level. If the currently selected level is removed, the `selectedIndex` will be set to `-1`.
 
 ### Triggering the 'change' event
 
