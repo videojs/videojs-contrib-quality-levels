@@ -1,3 +1,22 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.9...v2.1.0) (2021-04-05)
+
+### Features
+
+* mark Video.js as a peer dependency (#125) ([1115f78](https://github.com/videojs/videojs-contrib-quality-levels/commit/1115f78)), closes [#125](https://github.com/videojs/videojs-contrib-quality-levels/issues/125)
+
+### Chores
+
+* **package:** update npm-run-all to 4.1.5 (#72) ([a9e7ff5](https://github.com/videojs/videojs-contrib-quality-levels/commit/a9e7ff5)), closes [#72](https://github.com/videojs/videojs-contrib-quality-levels/issues/72)
+* **package:** update videojs-generate-karma-config to version 5.0.2 (#77) ([72190a4](https://github.com/videojs/videojs-contrib-quality-levels/commit/72190a4)), closes [#77](https://github.com/videojs/videojs-contrib-quality-levels/issues/77)
+* Update videojs-generate-karma-config to the latest version 🚀 (#65) ([50b2b42](https://github.com/videojs/videojs-contrib-quality-levels/commit/50b2b42)), closes [#65](https://github.com/videojs/videojs-contrib-quality-levels/issues/65)
+
+### Documentation
+
+* Fixed grammar and removed some unnecessary words (#83) ([63da16f](https://github.com/videojs/videojs-contrib-quality-levels/commit/63da16f)), closes [#83](https://github.com/videojs/videojs-contrib-quality-levels/issues/83)
+* **README:** Fix minor typo (#114) ([153583e](https://github.com/videojs/videojs-contrib-quality-levels/commit/153583e)), closes [#114](https://github.com/videojs/videojs-contrib-quality-levels/issues/114)
+* update description in readme (#84) ([433df96](https://github.com/videojs/videojs-contrib-quality-levels/commit/433df96)), closes [#84](https://github.com/videojs/videojs-contrib-quality-levels/issues/84)
+
 <a name="2.0.9"></a>
 ## [2.0.9](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.8...v2.0.9) (2018-09-17)
 
