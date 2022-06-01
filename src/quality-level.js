@@ -1,6 +1,3 @@
-import videojs from 'video.js';
-import document from 'global/document';
-
 /**
  * A single QualityLevel.
  *
@@ -30,15 +27,6 @@ export default class QualityLevel {
   constructor(representation) {
 
     let level = this; // eslint-disable-line
-
-    if (videojs.browser.IS_IE8) {
-      level = document.createElement('custom');
-      for (const prop in QualityLevel.prototype) {
-        if (prop !== 'constructor') {
-          level[prop] = QualityLevel.prototype[prop];
-        }
-      }
-    }
 
     level.id = representation.id;
     level.label = level.id;
