@@ -22,6 +22,7 @@ export default class QualityLevel {
    * @param {number=}  representation.width     Resolution width of the QualityLevel
    * @param {number=}  representation.height    Resolution height of the QualityLevel
    * @param {number}   representation.bandwidth Bitrate of the QualityLevel
+   * @param {number=}  representation.frameRate Frame-rate of the QualityLevel
    * @param {Function} representation.enabled   Callback to enable/disable QualityLevel
    */
   constructor(representation) {
@@ -33,6 +34,7 @@ export default class QualityLevel {
     level.width = representation.width;
     level.height = representation.height;
     level.bitrate = representation.bandwidth;
+    level.frameRate = representation.frameRate;
     level.enabled_ = representation.enabled;
 
     Object.defineProperty(level, 'enabled', {
