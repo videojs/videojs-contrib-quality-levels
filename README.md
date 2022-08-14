@@ -54,7 +54,7 @@ bower install  --save videojs-contrib-quality-levels
 
 ## Using
 
-The list of `QualiyLevels` can be accessed using `qualityLevels()` on the Player object.
+The list of `QualityLevels` can be accessed using `qualityLevels()` on the Player object.
 With this list, you can:
  * See which quality levels are available for the current source
  * Enable or disable specific quality levels to change which levels are selected by ABR
