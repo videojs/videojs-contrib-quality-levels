@@ -14,6 +14,7 @@ Maintenance Status: Stable
 
 
 - [Installation](#installation)
+- [Installation](#installation-1)
 - [Using](#using)
 - [Supporting Quality Levels for your source](#supporting-quality-levels-for-your-source)
   - [Populating the list](#populating-the-list)
@@ -111,7 +112,7 @@ This project provides the framework for working with source quality levels. Just
 If you are not using one of the supported projects, but still want to use quality levels with your source, you will have to implement your own plugin that populates the list and triggers change events when selected level changes. Implementing such a plugin is very specific to the source in question, so it is difficult to provide specific examples, but will most likely require a custom middleware, source handler, or tech.
 
 ### Populating the list
-Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the required properties). All properties are required except `width` and `height`.
+Initially the list of quality levels will be empty. You can add quality levels to the list by using `QualityLevelList.addQualityLevel` for each quality level specific to your source. `QualityLevelList.addQualityLevel` takes in a `Representation` object (or generic object with the required properties). All properties are required except `width`, `height` and `frameRate`.
 
 Example Representation
 ```js
@@ -120,6 +121,7 @@ Representation {
   width: number,
   height: number,
   bitrate: number,
+  frameRate: number,
   enabled: function
 }
 ```
