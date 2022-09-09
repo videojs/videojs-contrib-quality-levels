@@ -14,7 +14,6 @@ Maintenance Status: Stable
 
 
 - [Installation](#installation)
-- [Installation](#installation-1)
 - [Using](#using)
 - [Supporting Quality Levels for your source](#supporting-quality-levels-for-your-source)
   - [Populating the list](#populating-the-list)
@@ -86,8 +85,7 @@ let toggleQuality = (function() {
   let enable720 = true;
 
   return function() {
-    for (var i = 0; i < qualityLevels.length; i++) {
-      let qualityLevel = qualityLevels[i];
+    for (let qualityLevel of qualityLevels) {
       if (qualityLevel.height >= 720) {
         qualityLevel.enabled = enable720;
       } else {
