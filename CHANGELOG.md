@@ -1,3 +1,26 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.1.0...v2.2.0) (2022-09-09)
+
+### Features
+
+* add frameRate property to the quality level (#134) ([13998a7](https://github.com/videojs/videojs-contrib-quality-levels/commit/13998a7)), closes [#134](https://github.com/videojs/videojs-contrib-quality-levels/issues/134)
+
+### Chores
+
+* update jsdoc (#132) ([dbcc7b4](https://github.com/videojs/videojs-contrib-quality-levels/commit/dbcc7b4)), closes [#132](https://github.com/videojs/videojs-contrib-quality-levels/issues/132)
+
+### Code Refactoring
+
+* remove IE8 specific changes (#133) ([316f405](https://github.com/videojs/videojs-contrib-quality-levels/commit/316f405)), closes [#133](https://github.com/videojs/videojs-contrib-quality-levels/issues/133)
+
+### Documentation
+
+* Fix typo in README (#135) ([7036132](https://github.com/videojs/videojs-contrib-quality-levels/commit/7036132)), closes [#135](https://github.com/videojs/videojs-contrib-quality-levels/issues/135)
+
+### Tests
+
+* update karma-config to fix local tests (#137) ([77bb0f1](https://github.com/videojs/videojs-contrib-quality-levels/commit/77bb0f1)), closes [#137](https://github.com/videojs/videojs-contrib-quality-levels/issues/137)
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.0.9...v2.1.0) (2021-04-05)
 
