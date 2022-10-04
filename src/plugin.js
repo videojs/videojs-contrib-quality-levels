@@ -8,7 +8,7 @@ import {version as VERSION} from '../package.json';
  *
  * @param {Player} player Player object.
  * @param {Object} options Plugin options object.
- * @function initPlugin
+ * @return {QualityLevelList} a list of QualityLevels
  */
 const initPlugin = function(player, options) {
   const originalPluginFn = player.qualityLevels;
@@ -38,7 +38,7 @@ const initPlugin = function(player, options) {
  * to you; if not, remove the wait for "ready"!
  *
  * @param {Object} options Plugin options object
- * @function qualityLevels
+ * @return {QualityLevelList} a list of QualityLevels
  */
 const qualityLevels = function(options) {
   return initPlugin(this, videojs.obj.merge({}, options));
