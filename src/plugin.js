@@ -44,7 +44,7 @@ const initPlugin = function(player, options) {
  * @function qualityLevels
  */
 const qualityLevels = function(options) {
-  return initPlugin(this, videojs.mergeOptions({}, options));
+  return initPlugin(this, videojs.obj.merge({}, options));
 };
 
 // Register the plugin with video.js.
