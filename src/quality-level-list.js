@@ -54,7 +54,9 @@ class QualityLevelList extends videojs.EventTarget {
       }
     });
 
-    list[Symbol.iterator] = () => list.levels_.values();
+    if (typeof Symbol === 'function' && typeof Symbol() === 'symbol') {
+      list[Symbol.iterator] = () => list.levels_.values();
+    }
 
     return list;
   }
