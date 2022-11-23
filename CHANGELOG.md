@@ -1,3 +1,11 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.2.0...v2.2.1) (2022-11-23)
+
+### Chores
+
+* do not run tests on npm version (#141) ([e598158](https://github.com/videojs/videojs-contrib-quality-levels/commit/e598158)), closes [#141](https://github.com/videojs/videojs-contrib-quality-levels/issues/141)
+* **package:** add Video.js 8 as a compatible version (#140) ([5e61e71](https://github.com/videojs/videojs-contrib-quality-levels/commit/5e61e71)), closes [#140](https://github.com/videojs/videojs-contrib-quality-levels/issues/140)
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.1.0...v2.2.0) (2022-09-09)
 
