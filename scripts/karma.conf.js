@@ -10,4 +10,3 @@ module.exports = function(config) {
 
   // any other custom stuff not supported by options here!
 };
-
