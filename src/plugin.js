@@ -41,10 +41,7 @@ const initPlugin = function(player, options) {
  * @return {QualityLevelList} a list of QualityLevels
  */
 const qualityLevels = function(options) {
-  // videojs.mergeOptions() is deprecated in v8
-  const merge = videojs.obj && videojs.obj.merge || videojs.mergeOptions;
-
-  return initPlugin(this, merge({}, options));
+  return initPlugin(this, videojs.obj.merge({}, options));
 };
 
 // Register the plugin with video.js.
