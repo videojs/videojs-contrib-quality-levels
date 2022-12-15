@@ -1,6 +1,6 @@
 {
   "name": "videojs-contrib-quality-levels",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Exposes a list of quality levels available for the source.",
   "main": "dist/videojs-contrib-quality-levels.cjs.js",
   "jsnext:main": "src/plugin.js",
@@ -23,7 +23,6 @@
     "pretest": "npm-run-all lint build",
     "test": "karma start scripts/karma.conf.js",
     "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
-    "preversion": "npm test",
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "watch": "npm-run-all -p watch:*",
     "watch:js": "npm run build:js -- -w",
@@ -58,10 +57,10 @@
   ],
   "dependencies": {
     "global": "^4.3.2",
-    "video.js": "^7 || ^8"
+    "video.js": "^6 || ^7 || ^8"
   },
   "peerDependencies": {
-    "video.js": "^7 || ^8"
+    "video.js": "^6 || ^7 || ^8"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^2.0.1",
