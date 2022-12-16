@@ -29,8 +29,6 @@
     "preversion": "npm test",
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "watch": "npm-run-all -p watch:*",
-    "watch:cjs": "npm run build:cjs -- -w",
-    "watch:es": "npm run build:es -- -w",
     "watch:js": "npm run build:js -- -w",
     "prepublishOnly": "npm-run-all build-prod && vjsverify --verbose"
   },
