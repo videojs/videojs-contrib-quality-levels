@@ -1,3 +1,14 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.2.1...v3.0.0) (2022-12-22)
+
+### Features
+
+* Don't transpile classes ([7b01bb3](https://github.com/videojs/videojs-contrib-quality-levels/commit/7b01bb3))
+
+### Chores
+
+* skip vjsverify es check ([89460b1](https://github.com/videojs/videojs-contrib-quality-levels/commit/89460b1))
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/videojs/videojs-contrib-quality-levels/compare/v2.2.0...v2.2.1) (2022-11-23)
 
