@@ -86,7 +86,7 @@
     "semver": "^5.1.0",
     "shx": "^0.3.2",
     "sinon": "^9.1.0",
-    "video.js": "^6 || ^7 || ^8",
+    "video.js": "^8",
     "videojs-generate-karma-config": "~8.0.0",
     "videojs-generate-rollup-config": "^7.0.0",
     "videojs-generator-verify": "^4.1.0",
