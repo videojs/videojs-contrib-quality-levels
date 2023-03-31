@@ -22,6 +22,9 @@ import QualityLevel from './quality-level.js';
  * @class QualityLevelList
  */
 class QualityLevelList extends videojs.EventTarget {
+  /**
+   * Creates a QualityLevelList.
+   */
   constructor() {
     super();
 
@@ -103,7 +106,7 @@ class QualityLevelList extends videojs.EventTarget {
   /**
    * Removes a quality level from the list.
    *
-   * @param {QualityLevel} remove QualityLevel to remove to the list.
+   * @param {QualityLevel} qualityLevel The QualityLevel to remove from the list.
    * @return {QualityLevel|null} the QualityLevel removed or null if nothing removed
    * @method removeQualityLevel
    */

@@ -2,16 +2,13 @@ import videojs from 'video.js';
 import QualityLevelList from './quality-level-list.js';
 import {version as VERSION} from '../package.json';
 
-// vjs 5/6 support
-const registerPlugin = videojs.registerPlugin || videojs.plugin;
-
 /**
  * Initialization function for the qualityLevels plugin. Sets up the QualityLevelList and
  * event handlers.
  *
  * @param {Player} player Player object.
  * @param {Object} options Plugin options object.
- * @function initPlugin
+ * @return {QualityLevelList} a list of QualityLevels
  */
 const initPlugin = function(player, options) {
   const originalPluginFn = player.qualityLevels;
@@ -41,14 +38,14 @@ const initPlugin = function(player, options) {
  * to you; if not, remove the wait for "ready"!
  *
  * @param {Object} options Plugin options object
- * @function qualityLevels
+ * @return {QualityLevelList} a list of QualityLevels
  */
 const qualityLevels = function(options) {
-  return initPlugin(this, videojs.mergeOptions({}, options));
+  return initPlugin(this, videojs.obj.merge({}, options));
 };
 
 // Register the plugin with video.js.
-registerPlugin('qualityLevels', qualityLevels);
+videojs.registerPlugin('qualityLevels', qualityLevels);
 
 // Include the version number.
 qualityLevels.VERSION = VERSION;
