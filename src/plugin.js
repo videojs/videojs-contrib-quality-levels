@@ -1,6 +1,6 @@
 import videojs from 'video.js';
 import QualityLevelList from './quality-level-list.js';
-import {version as VERSION} from '../package.json';
+import packageInfo from '../package.json';
 
 /**
  * Initialization function for the qualityLevels plugin. Sets up the QualityLevelList and
@@ -24,7 +24,7 @@ const initPlugin = function(player, options) {
   player.on('dispose', disposeHandler);
 
   player.qualityLevels = () => qualityLevelList;
-  player.qualityLevels.VERSION = VERSION;
+  player.qualityLevels.VERSION = packageInfo.version;
 
   return qualityLevelList;
 };
@@ -48,6 +48,6 @@ const qualityLevels = function(options) {
 videojs.registerPlugin('qualityLevels', qualityLevels);
 
 // Include the version number.
-qualityLevels.VERSION = VERSION;
+qualityLevels.VERSION = packageInfo.version;
 
 export default qualityLevels;
