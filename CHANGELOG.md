@@ -1,3 +1,14 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v4.0.0...v4.1.0) (2024-03-06)
+
+### Features
+
+* add types support (#149) ([7bc330e](https://github.com/videojs/videojs-contrib-quality-levels/commit/7bc330e)), closes [#149](https://github.com/videojs/videojs-contrib-quality-levels/issues/149)
+
+### Chores
+
+* Update CI workflow (#144) ([f088ede](https://github.com/videojs/videojs-contrib-quality-levels/commit/f088ede)), closes [#144](https://github.com/videojs/videojs-contrib-quality-levels/issues/144)
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/videojs/videojs-contrib-quality-levels/compare/v3.0.0...v4.0.0) (2023-03-31)
 

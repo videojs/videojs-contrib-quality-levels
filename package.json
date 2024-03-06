@@ -1,6 +1,6 @@
 {
   "name": "videojs-contrib-quality-levels",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Exposes a list of quality levels available for the source.",
   "main": "dist/videojs-contrib-quality-levels.cjs.js",
   "types": "dist/types/plugin.d.ts",
